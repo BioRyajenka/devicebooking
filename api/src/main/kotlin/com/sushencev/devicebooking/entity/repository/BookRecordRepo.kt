@@ -6,4 +6,5 @@ import java.util.*
 
 interface BookRecordRepo : JpaRepository<BookRecord, UUID> {
     fun findByUserIdAndDeviceId(userId: UUID, deviceId: UUID): BookRecord?
+    fun findFirstByDeviceIdOrderByDateDesc(deviceId: UUID): BookRecord?
 }

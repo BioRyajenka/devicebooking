@@ -5,14 +5,12 @@ import com.sushencev.devicebooking.entity.mapper.BookRecordMapper
 import com.sushencev.devicebooking.entity.repository.BookRecordRepo
 import com.sushencev.devicebooking.entity.repository.DeviceInfoRepo
 import com.sushencev.devicebooking.exception.DeviceNotFoundException
+import com.sushencev.devicebooking.type.BookStatus.AVAILABLE
 import com.sushencev.devicebooking.type.BookStatus.BOOKED
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.kotlin.any
-import org.mockito.kotlin.given
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
+import org.mockito.kotlin.*
 import java.time.Instant.now
 import java.util.UUID.randomUUID
 
@@ -64,6 +62,28 @@ internal class DeviceServiceTest {
 
         deviceService.bookDevice(deviceId, userId)
 
+        verify(bookRecordRepo).save(any())
+    }
+
+    @Test
+    fun `returnDevice() should do nothing if device is not booked`() {
+        given { bookRecordRepo.findFirstByDeviceIdOrderByDateDesc(deviceId) }
+            .willReturn(BookRecord(userId, deviceId, now(), AVAILABLE))
+
+        deviceService.returnDevice(deviceId, userId)
+
+        verify(bookRecordRepo).findFirstByDeviceIdOrderByDateDesc(deviceId)
+        verifyNoMoreInteractions(bookRecordRepo)
+    }
+
+    @Test
+    fun `returnDevice() should create return record if device is booked`() {
+        given { bookRecordRepo.findFirstByDeviceIdOrderByDateDesc(deviceId) }
+            .willReturn(BookRecord(userId, deviceId, now(), BOOKED))
+
+        deviceService.returnDevice(deviceId, userId)
+
+        verify(bookRecordRepo).findFirstByDeviceIdOrderByDateDesc(deviceId)
         verify(bookRecordRepo).save(any())
     }
 }

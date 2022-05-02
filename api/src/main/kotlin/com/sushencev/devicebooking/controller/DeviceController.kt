@@ -36,8 +36,11 @@ class DeviceController(
         ApiResponse(responseCode = "404", description = "Device not found"),
     ])
     @PostMapping("/{device-id}/return")
-    fun returnDevice(@PathVariable("device-id") deviceId: UUID) {
-        TODO()
+    fun returnDevice(
+        @PathVariable("device-id") deviceId: UUID,
+        @CurrentSecurityContext(expression="authentication?.principal?.id") userId: UUID,
+    ) {
+        deviceService.returnDevice(deviceId, userId)
     }
 
     @Operation(summary = "Get the list of devices")
