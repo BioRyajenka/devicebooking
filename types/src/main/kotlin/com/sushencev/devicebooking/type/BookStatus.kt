@@ -1,4 +1,5 @@
 package com.sushencev.devicebooking.type
 
-class BookStatus {
+enum class BookStatus {
+    BOOKED, AVAILABLE,
 }
