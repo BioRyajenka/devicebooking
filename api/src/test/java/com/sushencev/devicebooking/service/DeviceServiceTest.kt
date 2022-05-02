@@ -5,6 +5,7 @@ import com.sushencev.devicebooking.entity.mapper.BookRecordMapper
 import com.sushencev.devicebooking.entity.repository.BookRecordRepo
 import com.sushencev.devicebooking.entity.repository.DeviceInfoRepo
 import com.sushencev.devicebooking.exception.DeviceNotFoundException
+import com.sushencev.devicebooking.service.devicedata.DeviceDataService
 import com.sushencev.devicebooking.type.BookStatus.AVAILABLE
 import com.sushencev.devicebooking.type.BookStatus.BOOKED
 import org.junit.jupiter.api.BeforeEach
@@ -18,6 +19,7 @@ internal class DeviceServiceTest {
     lateinit var bookRecordRepo: BookRecordRepo
     lateinit var deviceInfoRepo: DeviceInfoRepo
     lateinit var deviceService: DeviceService
+    lateinit var deviceDataService: DeviceDataService
     lateinit var bookRecordMapper: BookRecordMapper
 
     val deviceId = randomUUID()
@@ -28,10 +30,11 @@ internal class DeviceServiceTest {
         bookRecordRepo = mock()
         deviceInfoRepo = mock()
         bookRecordMapper = mock()
+        deviceDataService = mock()
 
         given { deviceInfoRepo.existsById(deviceId) }.willReturn(true)
 
-        deviceService = DeviceService(bookRecordRepo, deviceInfoRepo, bookRecordMapper)
+        deviceService = DeviceService(bookRecordRepo, deviceInfoRepo, bookRecordMapper, deviceDataService)
     }
 
     @Test
