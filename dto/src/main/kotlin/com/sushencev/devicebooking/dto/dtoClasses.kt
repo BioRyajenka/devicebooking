@@ -10,7 +10,7 @@ class UserDto(
     val name: String,
 )
 
-class BookStatusDto(
+class BookRecordDto(
     val status: BookStatus,
     val dateOfBooking: Instant?,
     val user: UserDto?,
@@ -18,7 +18,8 @@ class BookStatusDto(
 
 class DeviceDto(
     val id: UUID,
-    val bookStatus: BookStatusDto,
+    val name: String,
+    val booking: BookRecordDto,
     val technology: String,
     val features: List<DeviceFeature>,
 )

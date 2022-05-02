@@ -1,6 +1,6 @@
 package com.sushencev.devicebooking.service
 
-import com.sushencev.devicebooking.persistence.UserRepo
+import com.sushencev.devicebooking.entity.repository.UserRepo
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException

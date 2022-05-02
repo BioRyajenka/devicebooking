@@ -1,4 +1,4 @@
-package com.sushencev.devicebooking.persistence
+package com.sushencev.devicebooking.entity.repository
 
 import com.sushencev.devicebooking.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
