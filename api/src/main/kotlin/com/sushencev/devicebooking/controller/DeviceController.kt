@@ -48,7 +48,5 @@ class DeviceController(
         ApiResponse(responseCode = "200", description = "Successful operation"),
     ])
     @GetMapping
-    fun getDevices(): List<DeviceDto> {
-        TODO()
-    }
+    fun getDevices() = deviceService.listDevices()
 }

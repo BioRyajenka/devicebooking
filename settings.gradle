@@ -7,4 +7,5 @@
 rootProject.name = 'interview-task'
 include 'api',
         'dto',
-        'types'
+        'types',
+        'fonoapi'
