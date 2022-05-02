@@ -4,6 +4,7 @@ import com.sushencev.devicebooking.entity.BookRecord
 import com.sushencev.devicebooking.entity.mapper.BookRecordMapper
 import com.sushencev.devicebooking.entity.repository.BookRecordRepo
 import com.sushencev.devicebooking.entity.repository.DeviceInfoRepo
+import com.sushencev.devicebooking.exception.DeviceNotFoundException
 import com.sushencev.devicebooking.type.BookStatus.BOOKED
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -41,7 +42,7 @@ internal class DeviceServiceTest {
 
         given { deviceInfoRepo.existsById(unknownDeviceId) }.willReturn(false)
 
-        assertThrows<IllegalArgumentException> {
+        assertThrows<DeviceNotFoundException> {
             deviceService.bookDevice(unknownDeviceId, userId)
         }
     }

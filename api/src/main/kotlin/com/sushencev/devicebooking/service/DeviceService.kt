@@ -5,6 +5,7 @@ import com.sushencev.devicebooking.entity.BookRecord
 import com.sushencev.devicebooking.entity.mapper.BookRecordMapper
 import com.sushencev.devicebooking.entity.repository.BookRecordRepo
 import com.sushencev.devicebooking.entity.repository.DeviceInfoRepo
+import com.sushencev.devicebooking.exception.DeviceNotFoundException
 import com.sushencev.devicebooking.type.BookStatus.AVAILABLE
 import com.sushencev.devicebooking.type.BookStatus.BOOKED
 import org.springframework.stereotype.Service
@@ -18,8 +19,8 @@ class DeviceService(
     private val bookRecordMapper: BookRecordMapper,
 ) {
     fun bookDevice(deviceId: UUID, userId: UUID): BookRecordDto {
-        require(deviceInfoRepo.existsById(deviceId)) {
-            "Unknown device"
+        if (!deviceInfoRepo.existsById(deviceId)) {
+            throw DeviceNotFoundException(deviceId)
         }
 
         val lastBookRecord = bookRecordRepo.findByUserIdAndDeviceId(userId, deviceId)

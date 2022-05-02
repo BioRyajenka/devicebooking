@@ -33,4 +33,14 @@ class GlobalExceptionHandler {
             .status(HttpStatus.NOT_IMPLEMENTED)
             .body(ex.message)
     }
+
+    @ExceptionHandler(DeviceNotFoundException::class)
+    fun handleValidationException(
+        request: HttpServletRequest,
+        ex: DeviceNotFoundException,
+    ): ResponseEntity<String> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ex.message)
+    }
 }
