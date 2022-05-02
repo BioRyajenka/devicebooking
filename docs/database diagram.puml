@@ -1,0 +1,21 @@
+@startuml
+
+entity users {
+    id: UUID
+    name: TEXT
+    password: TEXT
+}
+entity book_records {
+    id: UUID,
+    user_id: UUID
+    device_id: UUID
+    book_date: TIMESTAMP
+}
+entity devices {
+    id: UUID
+    name: TEXT
+}
+
+users }|--|| bookings
+
+@enduml

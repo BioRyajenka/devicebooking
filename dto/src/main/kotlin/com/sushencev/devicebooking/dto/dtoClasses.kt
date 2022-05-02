@@ -13,7 +13,7 @@ class UserDto(
 class BookStatusDto(
     val status: BookStatus,
     val dateOfBooking: Instant?,
-    val whoBooked: UserDto?,
+    val user: UserDto?,
 )
 
 class DeviceDto(
